@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}Detection history{% endblock %}
+{% block heading %}Detection history{% endblock %}
+{% block body %}
+<div class="toolbar">
+  <label>Show
+    <select id="predFilter"><option value="">All</option><option>Attack</option><option>Normal</option></select>
+  </label>
+</div>
+<div class="card table-wrap"><table>
+  <thead><tr><th>Time</th><th>Prediction</th><th>Threat</th><th>Risk</th><th>Confidence</th><th>Analyst</th></tr></thead>
+  <tbody id="historyRows"></tbody>
+</table></div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/lists.js') }}"></script>{% endblock %}

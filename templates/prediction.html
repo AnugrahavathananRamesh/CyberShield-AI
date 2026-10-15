@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block title %}Threat detection{% endblock %}
+{% block heading %}Threat detection{% endblock %}
+{% block body %}
+<div class="split">
+  <section class="card">
+    <h2>Activity details</h2>
+    <div class="presets">
+      <span class="muted">Load a sample:</span>
+      <button class="btn ghost small" data-preset="normal" type="button">Normal</button>
+      <button class="btn ghost small" data-preset="brute" type="button">Brute force</button>
+      <button class="btn ghost small" data-preset="dos" type="button">DoS</button>
+      <button class="btn ghost small" data-preset="scan" type="button">Port scan</button>
+      <button class="btn ghost small" data-preset="exfil" type="button">Data exfiltration</button>
+    </div>
+    <form id="predictForm" novalidate>
+      <div class="fields">
+        <label>Failed login attempts<input name="failed_logins" type="number" min="0" step="1" required></label>
+        <label>Connection count<input name="connection_count" type="number" min="0" step="1" required></label>
+        <label>Packet count<input name="packet_count" type="number" min="0" step="1" required></label>
+        <label>Duration (seconds)<input name="duration" type="number" min="0" step="any" required></label>
+        <label>Protocol
+          <select name="protocol"><option>tcp</option><option>udp</option><option>icmp</option></select></label>
+        <label>Service
+          <select name="service"><option>http</option><option>dns</option><option>ssh</option><option>ftp</option><option>smtp</option></select></label>
+        <label>Bytes sent by source<input name="src_bytes" type="number" min="0" step="1" required></label>
+        <label>Bytes sent by destination<input name="dst_bytes" type="number" min="0" step="1" required></label>
+        <label>Error rate (0 to 1)<input name="error_rate" type="number" min="0" max="1" step="any" required></label>
+        <label>Logged in?
+          <select name="logged_in"><option value="1">Yes</option><option value="0">No</option></select></label>
+        <label>Source IP<input name="source_ip" placeholder="192.168.1.50" maxlength="45"></label>
+        <label>Destination IP<input name="destination_ip" placeholder="10.0.0.5" maxlength="45"></label>
+      </div>
+      <p id="formError" class="form-error" role="alert" hidden></p>
+      <button class="btn primary" type="submit" id="analyzeBtn">Analyze activity</button>
+    </form>
+  </section>
+
+  <section class="card result" id="resultCard" aria-live="polite">
+    <h2>Result</h2>
+    <p class="muted" id="resultEmpty">Enter activity details or load a sample, then choose Analyze activity.</p>
+    <div id="resultBody" hidden>
+      <div id="banner" class="banner"></div>
+      <dl class="facts">
+        <dt>Prediction</dt><dd id="rPrediction"></dd>
+        <dt>Threat</dt><dd id="rThreat"></dd>
+        <dt>Confidence</dt><dd id="rConfidence"></dd>
+        <dt>Risk score</dt><dd id="rScore"></dd>
+        <dt>Risk level</dt><dd id="rLevel"></dd>
+      </dl>
+      <div class="meter"><div id="meterFill"></div></div>
+      <h3>Model probabilities</h3>
+      <ul id="rProbs" class="probs"></ul>
+      <p id="rAlert" class="muted"></p>
+    </div>
+    <p class="note">Detection depends on the training data and model quality. This prototype was trained on a synthetic demonstration dataset and cannot detect every real-world attack. Risk thresholds are prototype values, not a security standard.</p>
+  </section>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/prediction.js') }}"></script>{% endblock %}

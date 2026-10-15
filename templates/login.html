@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in - CyberShield AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="login-body">
+  <main class="login-card">
+    <div class="brand big">
+      <svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m8.5 12 2.5 2.5 4.5-5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+      <span>CyberShield AI</span>
+    </div>
+    <p class="muted">Machine-learning threat detection for network and login activity.</p>
+    <form id="loginForm" novalidate>
+      <label for="username">Username or email</label>
+      <input id="username" name="username" autocomplete="username" maxlength="100" required>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" maxlength="200" required>
+      <p id="loginError" class="form-error" role="alert" hidden></p>
+      <button class="btn primary wide" type="submit">Sign in</button>
+    </form>
+  </main>
+  <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+</body>
+</html>

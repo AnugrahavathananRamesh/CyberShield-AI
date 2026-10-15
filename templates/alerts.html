@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title %}Alerts{% endblock %}
+{% block heading %}Alerts{% endblock %}
+{% block body %}
+<div class="toolbar">
+  <label>Risk level
+    <select id="levelFilter"><option value="">All</option><option>High</option><option>Medium</option><option>Low</option></select>
+  </label>
+</div>
+<div id="alertList" class="alert-list card"></div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/lists.js') }}"></script>{% endblock %}

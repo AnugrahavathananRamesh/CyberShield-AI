@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %} - CyberShield AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m8.5 12 2.5 2.5 4.5-5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+      <span>CyberShield AI</span>
+    </div>
+    <nav>
+      <a href="/dashboard" class="{{ 'on' if active == 'dashboard' }}">Dashboard</a>
+      <a href="/detect" class="{{ 'on' if active == 'detect' }}">Threat detection</a>
+      <a href="/alerts" class="{{ 'on' if active == 'alerts' }}">Alerts</a>
+      <a href="/history" class="{{ 'on' if active == 'history' }}">Detection history</a>
+    </nav>
+    <div class="user">
+      <span>Signed in as <strong>{{ session.get('user') }}</strong></span>
+      <button id="logoutBtn" class="btn ghost" type="button">Log out</button>
+    </div>
+  </aside>
+  <main class="content">
+    <h1>{% block heading %}{% endblock %}</h1>
+    {% block body %}{% endblock %}
+  </main>
+</div>
+<script src="{{ url_for('static', filename='js/common.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>
